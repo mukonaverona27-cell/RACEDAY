@@ -1,0 +1,32 @@
+@model RaceDay.Web.Models.ProfileViewModels
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+<div class="row justify-content-center"><div class="col-lg-8">
+    <div class="card"><div class="card-body p-4">
+        <h1 class="h3 mb-4">Update your profile</h1>
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+            <input asp-for="ParticipantID" type="hidden" />
+            <input asp-for="ProfileImagePath" type="hidden" />
+            <div class="mb-3">
+                <label class="form-label">Profile picture (JPG, PNG or WEBP; max 2 MB)</label>
+                <input type="file" name="profileImage" class="form-control" accept=".jpg,.jpeg,.png,.webp" />
+                @if (!string.IsNullOrWhiteSpace(Model.ProfileImagePath)) { <img src="@Model.ProfileImagePath" class="profile-photo mt-3" alt="Current profile picture" /> }
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6"><label asp-for="Name" class="form-label"></label><input asp-for="Name" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="Surname" class="form-label"></label><input asp-for="Surname" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="Email" class="form-label"></label><input asp-for="Email" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="Phone" class="form-label"></label><input asp-for="Phone" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="City" class="form-label"></label><input asp-for="City" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="Province" class="form-label"></label><input asp-for="Province" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="DateOfBirth" class="form-label"></label><input asp-for="DateOfBirth" type="date" class="form-control" /></div>
+                <div class="col-md-6"><label asp-for="Gender" class="form-label"></label><input asp-for="Gender" class="form-control" /></div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">Save changes</button>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-4">Cancel</a>
+        </form>
+    </div></div>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

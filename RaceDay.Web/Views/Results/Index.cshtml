@@ -1,0 +1,15 @@
+@model List<RaceDay.Web.Models.ResultViewModels>
+@{
+    ViewData["Title"] = "Event Results";
+}
+<h1 class="h2">Event Results</h1>
+<p class="text-muted">Results recorded for event #@ViewBag.EventID.</p>
+@if (!Model.Any()) { <div class="alert alert-info">No results have been entered yet. Add results from the event enrolments page.</div> }
+else
+{
+    <div class="table-responsive"><table class="table table-striped">
+        <thead><tr><th>Participant</th><th>Enrolment</th><th>Finish time</th><th>Overall position</th><th>Category position</th><th>Pace</th><th></th></tr></thead>
+        <tbody>@foreach (var item in Model) { <tr><td>@item.Enrolment?.Participant?.Name @item.Enrolment?.Participant?.Surname</td><td>@item.EnrolmentID</td><td>@item.FinishTime</td><td>@item.OverallPosition</td><td>@item.CategoryPosition</td><td>@item.Pace</td><td><form asp-action="Delete" method="post"><input type="hidden" name="id" value="@item.ResultsID" /><input type="hidden" name="eventId" value="@ViewBag.EventID" /><button class="btn btn-sm btn-outline-danger" type="submit">Delete</button></form></td></tr> }</tbody>
+    </table></div>
+}
+<a asp-controller="Events" asp-action="Index" class="btn btn-outline-secondary">Back to events</a>

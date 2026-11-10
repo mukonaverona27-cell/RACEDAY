@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var role = Context.Session.GetString("Role");
+    var email = Context.Session.GetString("Email");
+}
+<div class="hero-panel p-4 p-md-5 mb-4 rounded-4">
+    <span class="badge text-bg-light mb-3">RaceDay Event Management</span>
+    <h1 class="display-5 fw-bold">Run your race. Reach your goals.</h1>
+    <p class="lead mb-4">Discover sporting events, manage race entries and keep track of results.</p>
+    @if (role == null)
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-light btn-lg me-2">Login</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-light btn-lg">Create account</a>
+    }
+    else if (role == "Organiser")
+    {
+        <p class="mb-3">Welcome back, @email.</p>
+        <a asp-controller="Organiser" asp-action="Index" class="btn btn-light btn-lg">Open organiser dashboard</a>
+    }
+    else
+    {
+        <p class="mb-3">Welcome back, @email.</p>
+        <a asp-controller="Participant" asp-action="Events" class="btn btn-light btn-lg">Explore events</a>
+    }
+</div>
+<div class="row g-3">
+    <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Discover events</h2><p class="mb-0">Find running, walking and cycling events.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Manage entries</h2><p class="mb-0">Keep your event enrolments and categories organised.</p></div></div></div>
+    <div class="col-md-4"><div class="card h-100"><div class="card-body"><h2 class="h5">Track results</h2><p class="mb-0">View race times and finishing positions.</p></div></div></div>
+</div>

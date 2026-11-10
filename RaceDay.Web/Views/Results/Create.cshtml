@@ -1,0 +1,22 @@
+@model RaceDay.Web.Models.ResultViewModels
+@{
+    ViewData["Title"] = "Enter Result";
+}
+<div class="row justify-content-center"><div class="col-lg-6">
+    <div class="card"><div class="card-body p-4">
+        <h1 class="h3 mb-3">Enter race result</h1>
+        <form asp-action="Create" asp-route-eventId="@Model.EventID" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input asp-for="EnrolmentID" type="hidden" />
+            <input asp-for="EventID" type="hidden" />
+            <div class="mb-3"><label class="form-label">Enrolment ID</label><input value="@Model.EnrolmentID" class="form-control" disabled /></div>
+            <div class="mb-3"><label asp-for="FinishTime" class="form-label"></label><input asp-for="FinishTime" type="time" step="1" class="form-control" /></div>
+            <div class="row"><div class="col"><label asp-for="OverallPosition" class="form-label"></label><input asp-for="OverallPosition" class="form-control" /></div><div class="col"><label asp-for="CategoryPosition" class="form-label"></label><input asp-for="CategoryPosition" class="form-control" /></div></div>
+            <div class="mb-3 mt-3"><label asp-for="Pace" class="form-label"></label><input asp-for="Pace" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="CompetitionTime" class="form-label"></label><input asp-for="CompetitionTime" type="time" step="1" class="form-control" /></div>
+            <div class="mb-3"><label asp-for="ChipTime" class="form-label"></label><input asp-for="ChipTime" type="time" step="1" class="form-control" /></div>
+            <button type="submit" class="btn btn-primary">Save result</button>
+        </form>
+    </div></div>
+</div></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

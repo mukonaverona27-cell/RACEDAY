@@ -1,0 +1,33 @@
+@model List<RaceDay.Web.Models.EventViewModels>
+@{
+    ViewData["Title"] = "Browse Events";
+}
+<h1 class="h2 mb-1">Upcoming Events</h1>
+<p class="text-muted mb-4">Explore the events available on RaceDay.</p>
+<form method="get" asp-action="Events" class="row g-2 mb-4">
+    <div class="col-md-5"><input name="search" value="@ViewBag.Search" class="form-control" placeholder="Search event, venue or city" /></div>
+    <div class="col-md-4"><select name="eventType" class="form-select"><option value="">All event types</option><option value="Road Race">Road Race</option><option value="Trail Run">Trail Run</option><option value="Walking">Walking</option><option value="Cycling">Cycling</option><option value="Fun Run">Fun Run</option></select></div>
+    <div class="col-md-3"><button class="btn btn-primary w-100" type="submit">Filter events</button></div>
+</form>
+@if (!Model.Any()) { <div class="alert alert-info">There are no events available at the moment.</div> }
+else
+{
+    <div class="row g-3">
+        @foreach (var item in Model.OrderBy(e => e.EventDate))
+        {
+            <div class="col-md-6 col-xl-4">
+                <div class="card h-100">
+                    @if (!string.IsNullOrWhiteSpace(item.BannerImagePath)) { <img src="@item.BannerImagePath" class="card-img-top event-banner" alt="Event banner" /> }
+                    <div class="card-body d-flex flex-column">
+                        <span class="badge text-bg-primary align-self-start mb-2">@item.EventType</span>
+                        <h2 class="h5">@item.EventName</h2>
+                        <p class="text-muted">@item.EventDate.ToString("dd MMM yyyy")</p>
+                        <p>@item.Venue, @item.City, @item.Province</p>
+                        <p class="flex-grow-1">@item.Description</p>
+                        <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn-primary">View event</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

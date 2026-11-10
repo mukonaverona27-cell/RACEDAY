@@ -1,0 +1,28 @@
+@model List<RaceDay.Web.Models.EnrolmentViewModels>
+@{
+    var eventItem = (RaceDay.Web.Models.EventViewModels)ViewBag.EventItem;
+    ViewData["Title"] = "Event Enrolments";
+}
+<h1 class="h2">Enrolments: @eventItem.EventName</h1>
+<p class="text-muted">Participants enrolled in this event.</p>
+@if (!Model.Any()) { <div class="alert alert-info">There are no enrolments for this event yet.</div> }
+else
+{
+    <div class="table-responsive"><table class="table table-striped align-middle">
+        <thead><tr><th>Participant</th><th>Email</th><th>Category</th><th>Enrolment date</th><th>Status</th><th>Results</th></tr></thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Participant?.Name @item.Participant?.Surname</td>
+                <td>@item.Participant?.Email</td>
+                <td>@(item.EventCategory?.Distance.ToString() ?? "—") km</td>
+                <td>@item.EnrolmentDate.ToString("dd MMM yyyy")</td>
+                <td><span class="badge text-bg-success">@item.Status</span></td>
+                <td><a asp-controller="Results" asp-action="Create" asp-route-eventId="@eventItem.EventID" asp-route-enrolmentId="@item.EnrolmentID" class="btn btn-sm btn-outline-primary">Enter result</a></td>
+            </tr>
+        }
+        </tbody>
+    </table></div>
+}
+<a asp-controller="Events" asp-action="Index" class="btn btn-outline-secondary">Back to events</a>

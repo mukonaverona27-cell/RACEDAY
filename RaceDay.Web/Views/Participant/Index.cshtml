@@ -1,0 +1,12 @@
+@{
+    ViewData["Title"] = "Participant Dashboard";
+}
+<div class="hero-panel rounded-4 p-4 p-md-5 mb-4">
+    <h1 class="display-6 fw-bold">Participant Dashboard</h1>
+    <p class="lead mb-0">Your next race starts here. Browse events, manage your entries and check your results.</p>
+</div>
+<div class="row g-3">
+    <div class="col-md-4"><div class="stat-card"><span class="text-muted">Available events</span><div class="display-6 fw-bold">@ViewBag.EventCount</div><a asp-action="Events">Browse events</a></div></div>
+    <div class="col-md-4"><div class="stat-card"><span class="text-muted">Your enrolments</span><div class="display-6 fw-bold">@ViewBag.EnrolmentCount</div><a asp-action="MyEvents">View my events</a></div></div>
+    <div class="col-md-4"><div class="stat-card"><span class="text-muted">Your profile</span><div class="h4 mt-2">Keep details up to date</div><a asp-controller="Profile" asp-action="Index">Open profile</a></div></div>
+</div>

@@ -1,0 +1,28 @@
+name: RaceDay Part 3 CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master", "ST10483747" ]
+  pull_request:
+    branches: [ "master", "ST10483747" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore solution
+        run: dotnet restore RACEDAY.sln
+
+      - name: Build solution
+        run: dotnet build RACEDAY.sln --no-restore
+
+      - name: Run API tests
+        run: dotnet test RaceDay.Api.Tests/RaceDay.Api.Tests.csproj --no-build

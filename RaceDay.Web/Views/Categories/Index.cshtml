@@ -1,0 +1,23 @@
+@model List<RaceDay.Web.Models.EventCategoryViewModels>
+@{
+    var eventItem = (RaceDay.Web.Models.EventViewModels)ViewBag.EventItem;
+    ViewData["Title"] = "Event Categories";
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div><h1 class="h2">Categories: @eventItem.EventName</h1><p class="text-muted">Manage distances, age ranges and entry fees.</p></div>
+    <a asp-action="Create" asp-route-eventId="@eventItem.EventID" class="btn btn-primary">Add category</a>
+</div>
+@if (!Model.Any()) { <div class="alert alert-info">No categories have been added for this event.</div> }
+else
+{
+    <div class="table-responsive"><table class="table table-striped">
+        <thead><tr><th>Distance</th><th>Age range</th><th>Gender</th><th>Entry fee</th><th>Start time</th><th>Actions</th></tr></thead>
+        <tbody>@foreach (var item in Model) { <tr><td>@item.Distance km</td><td>@item.AgeFrom–@item.AgeTo</td><td>@item.Gender</td><td>R @item.EntryFee.ToString("N2")</td><td>@item.StartTime</td><td class="text-nowrap">
+                    <a asp-action="Edit" asp-route-eventId="@eventItem.EventID" asp-route-id="@item.EventCategoryID" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <form asp-action="Delete" asp-route-eventId="@eventItem.EventID" asp-route-id="@item.EventCategoryID" method="post" class="d-inline" onsubmit="return confirm('Delete this category?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                </td></tr> }</tbody>
+    </table></div>
+}
+<a asp-controller="Events" asp-action="Index" class="btn btn-outline-secondary">Back to events</a>
