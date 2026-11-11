@@ -101,16 +101,3 @@ dotnet build RACEDAY.sln
 dotnet test RaceDay.Api.Tests/RaceDay.Api.Tests.csproj
 ```
 
-GitHub Actions is configured to restore and build the full solution and run the API test project on the `master` and `ST10483747` branches.
-
-## Important assignment note
-
-The earlier Part 3 brief supplied for this project mentioned Azure Blob Storage and Docker. The current image implementation uses `wwwroot` based on the lecturer's updated instruction. Docker has not been added because the student requested that it be left out. Confirm any changed marking requirements with the lecturer before submission.
-
-## Submission checklist
-
-- Push the full `RaceDayPart2` repository folder, including `RaceDay.Web`, to GitHub.
-- Make regular, meaningful commits while completing and testing each feature.
-- Confirm GitHub Actions passes.
-- Update this README with the final run instructions and any lecturer-specific changes.
-- Record the required unlisted demonstration video and add its link here.
